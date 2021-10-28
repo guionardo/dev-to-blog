@@ -29,8 +29,13 @@ jobs:
             folders[$(dirname "$file")]="."
             echo $(dirname "$file")
           done
-          echo $folders
+          for x in "${!folders[@]}"; do
+            echo "folder $x"
+          done          
       
       - name: Bash version
         run: |
           bash --version
+      -name: Curl version
+        run: |
+          curl --version
