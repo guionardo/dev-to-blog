@@ -23,10 +23,13 @@ jobs:
 
       - name: List all modified files
         run: |
+          declare -A folders
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
             echo "$file was modified"
+            folders[$(dirname "$file")]="."
             echo $(dirname "$file")
           done
+          echo $folders
       
       - name: Bash version
         run: |
