@@ -34,12 +34,7 @@ jobs:
               post_folders+=($x)
             fi            
           done      
-          echo "FOLDERS=$post_folders" >> $GITHUB_ENV  
-      - name: Check folders
-        run: |
-          for x in "${!env.FOLDERS[@]}"; do
-            echo "folder $x"
-          done          
+          echo ::set-output name=folders::${post_folders[@]}
 
       - name: Versions
         run: |
