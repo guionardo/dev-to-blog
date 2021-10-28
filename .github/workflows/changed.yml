@@ -22,6 +22,7 @@ jobs:
         uses: tj-actions/changed-files@v11.3
 
       - name: List all modified files
+        id: list
         run: |
           declare -A folders
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do          
@@ -42,7 +43,7 @@ jobs:
 
       - name: List folders
         run: |
-          echo ${{ steps.vars.outputs.folders }}
+          echo ${{ steps.list.outputs.folders }}
           
       - name: Versions
         run: |
