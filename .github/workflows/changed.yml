@@ -36,6 +36,7 @@ jobs:
       - name: Bash version
         run: |
           bash --version
-      -name: Curl version
+      
+      - name: Curl version
         run: |
           curl --version
