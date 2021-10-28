@@ -24,17 +24,25 @@ jobs:
       - name: List all modified files
         run: |
           declare -A folders
-          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
+          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do          
             echo "$file was modified"
-            folders[$(dirname "$file")]="."
-            echo $(dirname "$file")
+            folders[$(dirname "$file")]="."            
           done
+          post_folders=()
           for x in "${!folders[@]}"; do
+            if [ -f "$x/metadata.json" ]; then
+              post_folders+=($x)
+            fi            
+          done          
+      - name: Check folders
+        run: |
+          for x in "${!post_folders[@]}"; do
             echo "folder $x"
           done          
-      
+
       - name: Versions
         run: |
           bash --version
           curl --version
+          jq --version
       

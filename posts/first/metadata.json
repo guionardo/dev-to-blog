@@ -1,0 +1,14 @@
+{
+    "article": {
+      "title": "Hello, World!",
+      "published": true,
+      "body_markdown": "Hello DEV, this is my first post",
+      "tags": [
+        "discuss",
+        "help"
+      ],
+      "series": "Hello series",
+      "canonical_url": "https://example.com/blog/hello"
+    }
+  }
+  
