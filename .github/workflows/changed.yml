@@ -36,6 +36,10 @@ jobs:
           done      
           echo ::set-output name=folders::${post_folders[@]}
 
+      -name: List folders
+        run: |
+          echo steps.vars.outputs.folders
+          
       - name: Versions
         run: |
           bash --version
