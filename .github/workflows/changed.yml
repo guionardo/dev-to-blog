@@ -30,9 +30,12 @@ jobs:
           done
           post_folders=()
           for x in "${!folders[@]}"; do
-            if [ -f "$x/metadata.json" ]; then
+            expected="$x/metadata.json"
+            if [ -f "$expected" ]; then
               post_folders+=($x)
               echo "Post folder $x"
+            else
+              echo "Esperado $expected"
             fi            
           done      
           echo ::set-output name=folders::${post_folders[@]}
