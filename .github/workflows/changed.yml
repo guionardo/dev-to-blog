@@ -33,10 +33,11 @@ jobs:
             if [ -f "$x/metadata.json" ]; then
               post_folders+=($x)
             fi            
-          done          
+          done      
+          echo "FOLDERS=$post_folders" >> $GITHUB_ENV  
       - name: Check folders
         run: |
-          for x in "${!post_folders[@]}"; do
+          for x in "${!env.FOLDERS[@]}"; do
             echo "folder $x"
           done          
 
