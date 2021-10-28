@@ -25,4 +25,9 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
             echo "$file was modified"
+            echo $(dirname "$file")
           done
+      
+      - name: Bash version
+        run: |
+          bash --version
