@@ -38,7 +38,7 @@ jobs:
 
       - name: List folders
         run: |
-          echo steps.vars.outputs.folders
+          echo ${{ steps.vars.outputs.folders }}
           
       - name: Versions
         run: |
