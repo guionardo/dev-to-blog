@@ -32,6 +32,7 @@ jobs:
           for x in "${!folders[@]}"; do
             if [ -f "$x/metadata.json" ]; then
               post_folders+=($x)
+              echo "Post folder $x"
             fi            
           done      
           echo ::set-output name=folders::${post_folders[@]}
