@@ -43,11 +43,16 @@ jobs:
 
       - name: List folders
         run: |
-          echo ${{ steps.list.outputs.folders }}
+          for folder in ${{ steps.list.outputs.folders }}; do
+            metadata="$folder/metadata.json"
+            echo "Metadata: $metadata"
+          done
+           
           
       - name: Versions
         run: |
           bash --version
           curl --version
           jq --version
+          bash script.sh
       
