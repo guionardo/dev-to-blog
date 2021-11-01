@@ -15,14 +15,14 @@ CURL_HTTP_STATUS=0
 CURL_RESPONSE_DATA=""
 
 function show_env(){
-    echo "+ ENVIRONMENT"
-    echo "  + GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
-    echo "  + GITHUB_REF = $GITHUB_REF"
-    echo "  + DEVTO_TOKEN = $DEVTO_TOKEN"
-    env
+    # echo "+ ENVIRONMENT"
+    # echo "  + GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
+    # echo "  + GITHUB_REF = $GITHUB_REF"
+    # echo "  + DEVTO_TOKEN = $DEVTO_TOKEN"
+    # env
 
-    git config --global user.email "guionardo@gmail.com"
-    git config --global user.name "Guionardo [action]"
+    # git config --global user.email "guionardo@gmail.com"
+    # git config --global user.name "Guionardo [action]"
 }
 
 # Validates files existing in post folder
