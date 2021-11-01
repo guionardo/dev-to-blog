@@ -7,6 +7,7 @@ Repository to automate post publishing into dev.to platform.
 ## Posts
 
 * [My post #1!](https://dev.to/guionardo/my-post-1-d5c)
+* [Guardando seus segredos com segurança!]()
 * [Hello, World 2!]()
 
 ## History
