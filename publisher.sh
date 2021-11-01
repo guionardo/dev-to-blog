@@ -72,7 +72,7 @@ function parse_title_canonical_url() {
     fi
     POST_CANONICAL_URL=$_expected_canonical_url
 
-    POST_MAIN_IMAGE=$(find_images $1)
+    POST_MAIN_IMAGE=$(find_images $POST_FOLDER)
     echo "  + Title [$POST_TITLE]"
     echo "  + $POST_CANONICAL_URL"
     echo "  + Main image: $POST_MAIN_IMAGE"
@@ -176,7 +176,7 @@ function get_publishing_file() {
     if [ -z "$POST_MAIN_IMAGE" ]; then
         jq 'del(.article.main_image)' $_tmp2 >$_tmp
     else
-        jq --arg main_image "$main_image" '.article.main_image = $POST_MAIN_IMAGE' $_tmp2 >$_tmp
+        jq --arg main_image "$POST_MAIN_IMAGE" '.article.main_image = $main_image' $_tmp2 >$_tmp
     fi
 
     rm $_tmp2
