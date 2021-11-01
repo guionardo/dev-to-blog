@@ -10,12 +10,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    runs-on: ubuntu-latest # windows-latest | macos-latest
     name: Test changed-files
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 0 # OR "2" -> To retrieve the preceding commit.
 
       - name: Get changed files
         id: changed-files
@@ -49,12 +49,14 @@ jobs:
             echo "🚀 publish.sh $folder"
             bash publisher.sh $folder            
           done
-           
-          
-      - name: Versions
-        run: |
-          bash --version
-          curl --version
-          jq --version
-          bash script.sh
-      
+
+      # - name: Versions
+      #   run: |
+      #     bash --version
+      #     curl --version
+      #     jq --version
+      #     bash script.sh
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update files
