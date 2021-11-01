@@ -14,18 +14,6 @@ POST_MAIN_IMAGE=""
 CURL_HTTP_STATUS=0
 CURL_RESPONSE_DATA=""
 
-function show_env() {
-    # echo "+ ENVIRONMENT"
-    # echo "  + GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
-    # echo "  + GITHUB_REF = $GITHUB_REF"
-    # echo "  + DEVTO_TOKEN = $DEVTO_TOKEN"
-    # env
-
-    # git config --global user.email "guionardo@gmail.com"
-    # git config --global user.name "Guionardo [action]"
-    return
-}
-
 # Validates files existing in post folder
 function validate_files() {
     POST_FOLDER=$1
@@ -76,7 +64,7 @@ function parse_title_canonical_url() {
             echo "Invalid title. Empty slug"
             exit 1
         fi
-        _expected_canonical_url="https://dev.to/guionardo/${_slug}"
+        _expected_canonical_url="https://dev.to/$DEVTO_USER/${_slug}"
         POST_SLUG=$_slug
     else
         _slut=$(basename "$_id_url")
@@ -138,7 +126,7 @@ function parse_post_id() {
         # Post doesnt have a id file
         local _tmp=$(mktemp)
         local _http_status=$(curl -X GET -s -o "$_tmp" -w "%{http_code}" \
-            "https://dev.to/api/articles/guionardo/${_slug}")
+            "https://dev.to/api/articles/$DEVTO_USER/${_slug}")
 
         case $_http_status in
         200)
@@ -285,28 +273,6 @@ function find_images() {
     done
 }
 
-# function set_publish_id() {
-#     id_file="$1/id.json"
-#     tmp=$(mktemp)
-#     jq --arg id "$2" '.id = $id' $id_file >$tmp
-#     mv $tmp $id_file
-# }
-
-# function validate_metadata_file() {
-#     metadata_file=$1
-#     slug=$2
-#     current_slug=$(jq '.article.canonical_url' $metadata_file)
-#     current_slug=$(unquote $current_slug)
-#     expected_slug="https://dev.to/guionardo/${slug}"
-#     if [ "$current_slug" == "$expected_slug" ]; then
-#         return
-#     fi
-#     tmp=$(mktemp)
-#     jq --arg slug "$expected_slug" '.article.canonical_url = $slug' $metadata_file >$tmp
-#     echo "Updated canonical_url: $expected_slug"
-#     mv $tmp $metadata_file
-# }
-
 function parse_response_file() {
     exit_status=$1
     http_status=$2
@@ -340,7 +306,7 @@ function parse_response_file() {
             tmp_0=$(mktemp)
             http_status=$(
                 curl -X GET -s -o "$tmp_0" -w "%{http_code}" \
-                    "https://dev.to/api/articles/guionardo/${slug}"
+                    "https://dev.to/api/articles/$DEVTO_USER/${slug}"
             )
             if [ "$http_status" == "200" ]; then
                 response_file_id=$(jq '.id' $tmp_)
@@ -379,7 +345,6 @@ function parse_response_file() {
     post_title=$(get_value $POST_METADATA_FILE .article.title)
 }
 
-show_env
 validate_files $1
 parse_title_canonical_url
 parse_post_id

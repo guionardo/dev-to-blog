@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest # windows-latest | macos-latest
-    name: Test changed-files
+    name: Publish posts
     steps:
       - uses: actions/checkout@v2
         with:
@@ -34,9 +34,7 @@ jobs:
             expected="$x/metadata.json"
             if [ -f "$expected" ]; then
               post_folders+=($x)
-              echo "Post folder $x"
-            else
-              echo "Esperado $expected"
+              echo "Post folder $x"            
             fi            
           done      
           echo ::set-output name=folders::${post_folders[@]}
@@ -44,6 +42,7 @@ jobs:
       - name: Publish folders
         env:
           DEVTO_TOKEN: ${{ secrets.DEVTO_TOKEN }}
+          DEVTO_USER: ${{ secrets.DEVTO_USER }}
         run: |
           for folder in ${{ steps.list.outputs.folders }}; do
             echo "🚀 publish.sh $folder"
@@ -53,13 +52,6 @@ jobs:
       - name: Update README.md
         run: |
           bash update_readme.sh
-
-      # - name: Versions
-      #   run: |
-      #     bash --version
-      #     curl --version
-      #     jq --version
-      #     bash script.sh
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
