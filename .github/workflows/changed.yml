@@ -50,6 +50,10 @@ jobs:
             bash publisher.sh $folder            
           done
 
+      - name: Update README.md
+        run: |
+          bash update_readme.sh
+
       # - name: Versions
       #   run: |
       #     bash --version

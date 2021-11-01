@@ -67,20 +67,28 @@ function parse_title_canonical_url() {
         exit 1
     fi
     POST_TITLE=$_title
-    local _slug=$(echo "$_title" | iconv -t ascii//TRANSLIT | sed -r s/[~\^]+//g | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
-    if [ -z "$_slug" ]; then
-        echo "Invalid title. Empty slug"
-        exit 1
+    local _expected_canonical_url
+    local _slug
+    local _id_url=$(get_value $POST_ID_FILE .url)
+    if [ "$_id_url" == "null" ] || [ -z $_id_url ]; then
+        _slug=$(echo "$_title" | iconv -t ascii//TRANSLIT | sed -r s/[~\^]+//g | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
+        if [ -z "$_slug" ]; then
+            echo "Invalid title. Empty slug"
+            exit 1
+        fi
+        _expected_canonical_url="https://dev.to/guionardo/${_slug}"
+        POST_SLUG=$_slug
+    else
+        _slut=$(basename "$_id_url")
+        _expected_canonical_url="$_id_url"
     fi
-    POST_SLUG=$_slug
-    local _expected_canonical_url="https://dev.to/guionardo/${_slug}"
+
     local _current_canonical_url=$(get_value $POST_METADATA_FILE .article.canonical_url)
     if [ "$_current_canonical_url" != "$_expected_canonical_url" ]; then
         # Updates metadata file for canonical url
         local _tmp=$(mktemp)
         jq --arg slug "$_expected_canonical_url" '.article.canonical_url = $slug' $POST_METADATA_FILE >$_tmp
         mv $_tmp $POST_METADATA_FILE
-        git_commit $POST_METADATA_FILE "Fixed canonical_url in $POST_METADATA_FILE = $_expected_canonical_url"
     fi
     POST_CANONICAL_URL=$_expected_canonical_url
 
@@ -92,42 +100,12 @@ function parse_title_canonical_url() {
 
 function add_history() {
     if [ ! -f "HISTORY.md" ]; then
-        echo "# HISTORY\n" >HISTORY.md
+        echo "# HISTORY" >HISTORY.md
+        echo "" >>HISTORY.md
     fi
 
-    echo "${date-R} $1" >>HISTORY.md
+    echo "* $(date -R) $1" >>HISTORY.md
     echo "  + $1"
-    git_commit HISTORY.md "Updated HISTORY.md"
-}
-
-function git_commit() {
-    return
-    local _file_added=$1
-    local _git_commit_message=$2
-    local _do_not_push=$3
-    if [ ! -z $_file_added ]; then
-        echo "  + [GIT] git add $_file_added"
-        git add "$_file_added"
-        if [ "$?" != "0" ]; then
-            echo "  + [GIT-FAIL] $?"
-            return
-        fi
-
-        echo "  + [GIT] git commit -m \"$_git_commit_message\""
-        git commit -m "$_git_commit_message"
-        if [ "$?" != "0" ]; then
-            echo "  + [GIT-FAIL] $?"
-            return
-        fi
-    fi
-    if [ ! -z $_do_not_push ]; then
-        echo "  + [GIT] git push"
-        git push
-        if [ "$?" != "0" ]; then
-            echo "  + [GIT-FAIL] $?"
-            return
-        fi
-    fi
 }
 
 function validate_post_id_() {
@@ -171,8 +149,6 @@ function parse_post_id() {
             else
                 POST_ID=$_id_from_file
                 mv $_tmp $_id_file
-                git_commit $_id_file "Added file $_id_file for post $_title #$_id_from_file" 1
-                _git=true
             fi
             ;;
         404)
@@ -240,135 +216,50 @@ function publish_file() {
     if [ -z "$POST_ID" ]; then
         # Create post
         do_curl "POST" "https://dev.to/api/articles" $_publishing_file
-        # _http_status=$(curl -X POST -s -H "Content-Type: application/json" \
-        #     -H "api-key: ${DEVTO_TOKEN}" \
-        #     -o "$_response_file" \
-        #     -d @$_publishing_file \
-        #     -w "%{http_code}" \
-        #     https://dev.to/api/articles)
-        # parse_response_file $? $_http_status $_response_file $1
         if [ "$CURL_HTTP_STATUS" -eq 201 ]; then
-            add_history "Created post: #$POST_ID - $POST_TITLE ($POST_CANONICAL_URL)"
+            add_history "Created post: #$POST_ID - [$POST_TITLE]($POST_CANONICAL_URL)"
         else
             add_history "Error creating post: #$POST_ID - $CURL_HTTP_STATUS - $CURL_RESPONSE_DATA"
         fi
     else
         # Update post
         do_curl "PUT" "https://dev.to/api/articles/$POST_ID" $_publishing_file
-        # _http_status=$(curl -X PUT -s -H "Content-Type: application/json" \
-        #     -H "api-key: ${DEVTO_TOKEN}" \
-        #     -o "$_response_file" \
-        #     -d @_publishing_file \
-        #     -w "%{http_code}" \
-        #     https://dev.to/api/articles/$POST_ID)
-        # parse_response_file $? $_http_status $_response_file $1
         if [ "$CURL_HTTP_STATUS" -eq 200 ]; then
-            echo "  + Updated post: #$POST_ID - $POST_TITLE ($POST_CANONICAL_URL)"
+            echo "  + Updated post: #$POST_ID - [$POST_TITLE]($POST_CANONICAL_URL)"
         else
             echo "  + Error updating post: #$POST_ID - $CURL_HTTP_STATUS - $CURL_RESPONSE_DATA"
         fi
-        # validate_post_id $1
+        add_history "Updated post: #$POST_ID - [$POST_TITLE]($POST_CANONICAL_URL)"
     fi
     if [ -f "$_response_file" ]; then
         rm $_response_file
     fi
 }
 
-# function get_id_and_url_from_metadata() {
-#     POST_ID=""
-#     POST_CANONICAL_URL=""
-#     local _post_folder=$1
-#     local _metadata_file="$1/metadata.json"
-#     if [ ! -f $_metadata_file ]; then
-#         echo "Metadata file not found: $_metadata_file"
-#         return
-#     fi
-
-#     # validates canonical_url
-#     local _current_canonical_url=$(get_value $_metadata_file .article.canonical_url)
-#     local _title=$(get_value $_metadata_file .article.title)
-#     local _slug=$(echo "$_title" | iconv -t ascii//TRANSLIT | sed -r s/[~\^]+//g | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
-#     local _expected_canonical_url="https://dev.to/guionardo/${_slug}"
-
-#     local _git=false
-#     if [ "$_current_canonical_url" != "$_expected_canonical_url" ]; then
-#         # Updates metadata file for canonical url
-#         local _tmp=$(mktemp)
-#         jq --arg slug "$_expected_canonical_url" '.article.canonical_url = $slug' $_metadata_file >$_tmp
-#         mv $_tmp $_metadata_file
-#         git_commit $_metadata_file "Fixed canonical_url in $_metadata_file = $_expected_canonical_url" 1
-#         _git=true
-#     fi
-#     POST_CANONICAL_URL=$_expected_canonical_url
-
-#     local _id_file="$1/id.json"
-#     local _id_from_file
-#     if [ -f "$_id_file" ]; then
-#         _id_from_file=$(get_value $_id_file '.id')
-#         if [ "$_id_from_file" == "null" ]; then
-#             echo "Invalid id file - will be recreated"
-#             rm $_id_file
+# function validate_post_id() {
+#     if [ -d $1 ]; then
+#         file_id="$1/id.json"
+#     else
+#         if [ -f $1 ]; then
+#             file_id="$1"
 #         else
-#             POST_ID=$_id_from_file
-#             POST_ID_FILE=$_id_file
+#             echo "Post id file not found $1"
 #         fi
 #     fi
-
-#     if [ ! -f "$_id_file" ]; then
-#         # Post doesnt have a id file
-#         local _tmp=$(mktemp)
-#         local _http_status=$(curl -X GET -s -o "$_tmp" -w "%{http_code}" \
-#             "https://dev.to/api/articles/guionardo/${_slug}")
-
-#         if [ "$_http_status" == "200" ]; then
-#             _id_from_file=$(get_value $_tmp '.id')
-#             if [ "$_id_from_file" == "null" ]; then
-#                 echo "Invalid content from response"
-#                 cat $_tmp
-#             else
-#                 POST_ID=$_id_from_file
-#                 POST_ID_FILE=$_id_file
-#                 mv $_tmp $_id_file
-#                 git_commit $_id_file "Added file $_id_file for post $_title #$_id_from_file" 1
-#                 _git=true
-#             fi
+#     if [ -f $file_id ]; then
+#         id=$(jq '.id' $file_id)
+#         if [ "$id" -eq "$id" ]; then
+#             POST_ID=$id
+#             echo "Post id #$id"
 #         else
-#             echo "Failed to get id from post - HTTP STATUS=$_http_status"
-#             cat $_tmp
-#             rm $_tmp
+#             echo "Invalid file $file_id"
+#             rm $file_id
 #         fi
 #     fi
-
-#     if [ $_git == true ]; then
-#         git_commit unexistent.json just_push
-#     fi
-
 # }
 
-function validate_post_id() {
-    if [ -d $1 ]; then
-        file_id="$1/id.json"
-    else
-        if [ -f $1 ]; then
-            file_id="$1"
-        else
-            echo "Post id file not found $1"
-        fi
-    fi
-    if [ -f $file_id ]; then
-        id=$(jq '.id' $file_id)
-        if [ "$id" -eq "$id" ]; then
-            POST_ID=$id
-            echo "Post id #$id"
-        else
-            echo "Invalid file $file_id"
-            rm $file_id
-        fi
-    fi
-}
-
 function unquote() {
-    u="${1%\"}"
+    local u="${1%\"}"
     u="${u#\"}"
     echo $u
 }
@@ -386,38 +277,35 @@ function get_value() {
 }
 
 function find_images() {
-    GH_REPO="${GITHUB_REPOSITORY:-guionardo/dev-to-blog}"
     for f in "$1"/*; do
         if [[ $f == *.png || $f == *.jpg || $f == *.jpeg ]]; then
-            echo "https://raw.githubusercontent.com/$GH_REPO/main/$f"
+            echo "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/$f"
             return
         fi
     done
 }
 
-function set_publish_id() {
-    id_file="$1/id.json"
-    tmp=$(mktemp)
-    jq --arg id "$2" '.id = $id' $id_file >$tmp
-    mv $tmp $id_file
-}
+# function set_publish_id() {
+#     id_file="$1/id.json"
+#     tmp=$(mktemp)
+#     jq --arg id "$2" '.id = $id' $id_file >$tmp
+#     mv $tmp $id_file
+# }
 
-function validate_metadata_file() {
-    metadata_file=$1
-    slug=$2
-    current_slug=$(jq '.article.canonical_url' $metadata_file)
-    current_slug=$(unquote $current_slug)
-    expected_slug="https://dev.to/guionardo/${slug}"
-    if [ "$current_slug" == "$expected_slug" ]; then
-        return
-    fi
-    tmp=$(mktemp)
-    jq --arg slug "$expected_slug" '.article.canonical_url = $slug' $metadata_file >$tmp
-    echo "Updated canonical_url: $expected_slug"
-    mv $tmp $metadata_file
-
-    git_commit $metadata_file "Updated canonical_url: $expected_slug"
-}
+# function validate_metadata_file() {
+#     metadata_file=$1
+#     slug=$2
+#     current_slug=$(jq '.article.canonical_url' $metadata_file)
+#     current_slug=$(unquote $current_slug)
+#     expected_slug="https://dev.to/guionardo/${slug}"
+#     if [ "$current_slug" == "$expected_slug" ]; then
+#         return
+#     fi
+#     tmp=$(mktemp)
+#     jq --arg slug "$expected_slug" '.article.canonical_url = $slug' $metadata_file >$tmp
+#     echo "Updated canonical_url: $expected_slug"
+#     mv $tmp $metadata_file
+# }
 
 function parse_response_file() {
     exit_status=$1
@@ -458,8 +346,6 @@ function parse_response_file() {
                 response_file_id=$(jq '.id' $tmp_)
                 echo "Post id got from URL $used_canonical_url = $ #$response_file_id"
                 mv $tmp_ $POST_ID_FILE
-                post_title=$(get_value $POST_METADATA_FILE .article.title)
-                git_commit $POST_ID_FILE "Updated id file of post $1 - $post_title"
                 return
             fi
         else
@@ -491,7 +377,6 @@ function parse_response_file() {
     fi
 
     post_title=$(get_value $POST_METADATA_FILE .article.title)
-    git_commit $POST_ID_FILE "Updated id file of post $POST_FOLDER - $POST_TITLE"
 }
 
 show_env
