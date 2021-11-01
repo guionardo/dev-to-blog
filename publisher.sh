@@ -159,7 +159,8 @@ function get_publishing_file() {
     local _tmp=$(mktemp)
     jq --arg md "$body_markdown" '.article.body_markdown = $md' $POST_METADATA_FILE >$_tmp
     local _tmp2=$(mktemp)
-    jq --arg url "$POST_CANONICAL_URL" '.article.canonical_url = $url' $_tmp >$_tmp2
+    # jq --arg url "$POST_CANONICAL_URL" '.article.canonical_url = $url' $_tmp >$_tmp2
+    jq 'del(.article.canonical_url)' $_tmp >$_tmp2
     if [ -z "$POST_MAIN_IMAGE" ]; then
         jq 'del(.article.main_image)' $_tmp2 >$_tmp
     else

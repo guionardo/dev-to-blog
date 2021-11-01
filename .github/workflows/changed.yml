@@ -52,6 +52,7 @@ jobs:
       - name: Update README.md
         run: |
           bash update_readme.sh
+          python --version
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
