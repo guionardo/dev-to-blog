@@ -44,6 +44,7 @@ jobs:
       - name: Publish folders
         run: |
           for folder in ${{ steps.list.outputs.folders }}; do
+            echo "🚀 publish.sh $folder"
             bash publisher.sh $folder            
           done
            
