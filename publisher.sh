@@ -14,7 +14,7 @@ POST_MAIN_IMAGE=""
 CURL_HTTP_STATUS=0
 CURL_RESPONSE_DATA=""
 
-function show_env(){
+function show_env() {
     # echo "+ ENVIRONMENT"
     # echo "  + GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
     # echo "  + GITHUB_REF = $GITHUB_REF"
@@ -23,6 +23,7 @@ function show_env(){
 
     # git config --global user.email "guionardo@gmail.com"
     # git config --global user.name "Guionardo [action]"
+    return
 }
 
 # Validates files existing in post folder
@@ -91,10 +92,10 @@ function parse_title_canonical_url() {
 
 function add_history() {
     if [ ! -f "HISTORY.md" ]; then
-        echo "# HISTORY\n" > HISTORY.md
+        echo "# HISTORY\n" >HISTORY.md
     fi
 
-    echo "${date -R} $1" >> HISTORY.md
+    echo "${date-R} $1" >>HISTORY.md
     echo "  + $1"
     git_commit HISTORY.md "Updated HISTORY.md"
 }
@@ -247,7 +248,7 @@ function publish_file() {
         #     https://dev.to/api/articles)
         # parse_response_file $? $_http_status $_response_file $1
         if [ "$CURL_HTTP_STATUS" -eq 201 ]; then
-            add_history "Created post: #$POST_ID - $POST_TITLE ($POST_CANONICAL_URL)"            
+            add_history "Created post: #$POST_ID - $POST_TITLE ($POST_CANONICAL_URL)"
         else
             add_history "Error creating post: #$POST_ID - $CURL_HTTP_STATUS - $CURL_RESPONSE_DATA"
         fi
