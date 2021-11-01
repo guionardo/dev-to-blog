@@ -41,11 +41,10 @@ jobs:
           done      
           echo ::set-output name=folders::${post_folders[@]}
 
-      - name: List folders
+      - name: Publish folders
         run: |
           for folder in ${{ steps.list.outputs.folders }}; do
-            metadata="$folder/metadata.json"
-            echo "Metadata: $metadata"
+            bash publisher.sh $folder            
           done
            
           
