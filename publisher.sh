@@ -14,6 +14,14 @@ POST_MAIN_IMAGE=""
 CURL_HTTP_STATUS=0
 CURL_RESPONSE_DATA=""
 
+function show_env(){
+    echo "+ ENVIRONMENT"
+    echo "  + GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
+    echo "  + GITHUB_REF = $GITHUB_REF"
+    echo "  + DEVTO_TOKEN = $DEVTO_TOKEN"
+    env
+}
+
 # Validates files existing in post folder
 function validate_files() {
     POST_FOLDER=$1
@@ -471,6 +479,7 @@ function parse_response_file() {
     git_commit $POST_ID_FILE "Updated id file of post $POST_FOLDER - $POST_TITLE"
 }
 
+show_env
 validate_files $1
 parse_title_canonical_url
 parse_post_id
