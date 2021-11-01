@@ -89,6 +89,16 @@ function parse_title_canonical_url() {
     echo "  + Main image: $POST_MAIN_IMAGE"
 }
 
+function add_history() {
+    if [ ! -f "HISTORY.md" ]; then
+        echo "# HISTORY\n" > HISTORY.md
+    fi
+
+    echo "${date -R} $1" >> HISTORY.md
+    echo "  + $1"
+    git_commit HISTORY.md "Updated HISTORY.md"
+}
+
 function git_commit() {
     local _file_added=$1
     local _git_commit_message=$2
@@ -236,9 +246,9 @@ function publish_file() {
         #     https://dev.to/api/articles)
         # parse_response_file $? $_http_status $_response_file $1
         if [ "$CURL_HTTP_STATUS" -eq 201 ]; then
-            echo "  + Created post: #$POST_ID - $POST_TITLE ($POST_CANONICAL_URL)"
+            add_history "Created post: #$POST_ID - $POST_TITLE ($POST_CANONICAL_URL)"            
         else
-            echo "  + Error creating post: #$POST_ID - $CURL_HTTP_STATUS - $CURL_RESPONSE_DATA"
+            add_history "Error creating post: #$POST_ID - $CURL_HTTP_STATUS - $CURL_RESPONSE_DATA"
         fi
     else
         # Update post
