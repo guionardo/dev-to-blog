@@ -1,0 +1,13 @@
+{
+    "article": {
+        "title": "Guardando seus segredos com segurança!",
+        "published": true,
+        "body_markdown": "Hello DEV, this is my first post",
+        "tags": [
+            "secrets",
+            "keepass",
+            "keybase"
+        ],        
+        "canonical_url": "https://dev.to/guionardo/my-post-1-d5c"
+    }
+}
