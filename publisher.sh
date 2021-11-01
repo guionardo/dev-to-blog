@@ -20,6 +20,9 @@ function show_env(){
     echo "  + GITHUB_REF = $GITHUB_REF"
     echo "  + DEVTO_TOKEN = $DEVTO_TOKEN"
     env
+
+    git config --global user.email "guionardo@gmail.com"
+    git config --global user.name "Guionardo [action]"
 }
 
 # Validates files existing in post folder
@@ -487,5 +490,5 @@ publishing_file=$(get_publishing_file)
 
 publish_file $publishing_file
 
-rm $publish_file
+rm $publishing_file
 exit 0

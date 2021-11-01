@@ -42,6 +42,8 @@ jobs:
           echo ::set-output name=folders::${post_folders[@]}
 
       - name: Publish folders
+        env:
+          DEVTO_TOKEN: ${{ secrets.DEVTO_TOKEN }}
         run: |
           for folder in ${{ steps.list.outputs.folders }}; do
             echo "🚀 publish.sh $folder"
