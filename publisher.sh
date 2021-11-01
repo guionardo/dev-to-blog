@@ -100,6 +100,7 @@ function add_history() {
 }
 
 function git_commit() {
+    return
     local _file_added=$1
     local _git_commit_message=$2
     local _do_not_push=$3
