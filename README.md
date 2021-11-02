@@ -9,7 +9,7 @@ Repository to automate post publishing into dev.to platform.
 * [My post #1!](https://dev.to/guionardo/my-post-1-d5c)
 * [Guardando seus segredos com segurança!]()
 * [Hello, World 2!]()
-* [Guardando seus segredos com segurança]()
+* [Guardando seus segredos com segurança](https://dev.to/guionardo/guardando-seus-segredos-com-seguranca-3km)
 
 ## History
 
@@ -18,3 +18,4 @@ Repository to automate post publishing into dev.to platform.
 * Tue, 02 Nov 2021 09:37:35 -0300 Created post: # - [Guardando seus segredos com segurança](https://dev.to/guionardo/guardando-seus-segredos-com-seguranca)
 * Tue, 02 Nov 2021 12:39:25 +0000 Updated post: #885386 - [Guardando seus segredos com segurança](https://dev.to/guionardo/guardando-seus-segredos-com-seguranca-1hdp)
 * Tue, 02 Nov 2021 12:42:30 +0000 Updated post: #885386 - [Guardando seus segredos com segurança](https://dev.to/guionardo/guardando-seus-segredos-com-seguranca-1hdp)
+* Tue, 02 Nov 2021 13:01:49 +0000 Created post: # - [Guardando seus segredos com segurança](https://dev.to/guionardo/guardando-seus-segredos-com-seguranca)
