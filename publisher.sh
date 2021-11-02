@@ -57,7 +57,10 @@ function parse_title_canonical_url() {
     POST_TITLE=$_title
     local _expected_canonical_url
     local _slug
-    local _id_url=$(get_value $POST_ID_FILE .url)
+    local _id_url
+    if [ -f $POST_ID_FILE ]; then
+        _id_url=$(get_value $POST_ID_FILE .url)
+    fi
     if [ "$_id_url" == "null" ] || [ -z $_id_url ]; then
         _slug=$(echo "$_title" | iconv -t ascii//TRANSLIT | sed -r s/[~\^]+//g | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
         if [ -z "$_slug" ]; then
