@@ -257,7 +257,7 @@ function unquote() {
 }
 
 function unescape_file() {
-    cat $1 | sed 's/\\\\/\\/g' >unescaped.tmp
+    cat $1 | sed 's/\\\\/\\/g' | sed 's/\\\\/\\/g' >unescaped.tmp
     mv unescaped.tmp $1
 }
 
