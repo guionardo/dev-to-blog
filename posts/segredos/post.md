@@ -33,3 +33,5 @@ Depois do keybase devidamente instalado, acesse as opções de arquivo:
 E clique em "Yes, enable" para instalar o Dokan Library, que permitirá montar o sistema de arquivos em uma unidade do sistema (K: geralmente, no Windows, e /keybase no Linux e no macOS)
 
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/xcbs6tn0avqqg1zwbw4n.png)
+
+## TODO: Continuar
