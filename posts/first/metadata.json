@@ -1,13 +1,13 @@
 {
   "article": {
-    "title": "My post #1!",
+    "title": "Automatizando a publicação de artifgos no dev.to com github actions",
     "published": true,
-    "body_markdown": "Hello DEV, this is my first post",
+    "body_markdown": "",
     "tags": [
-      "discuss",
-      "help"
-    ],
-    "series": "Hello series",
+      "github",
+      "actions"
+    ],   
+    "series": "Publicando artigos no dev.to", 
     "canonical_url": "https://dev.to/guionardo/my-post-1-d5c"
   }
 }
