@@ -35,8 +35,9 @@ function replace() {
 echo "* Updating README.md"
 
 tmp_posts=$(mktemp)
-
+count_posts=0
 for post in posts/*; do
+    count_posts=$((count_posts + 1))
     metadata_file="$post/metadata.json"
     if [ ! -f "$metadata_file" ]; then
         continue
@@ -52,6 +53,11 @@ for post in posts/*; do
     echo "* [$title]($url)" >>$tmp_posts
     echo "  + [$title]"
 done
+tmp_posts_c=$(mktemp)
+echo "Currently: $count_posts posts" >$tmp_posts_c
+echo "" >>$tmp_posts_c
+cat $tmp_posts >>$tmp_posts_c
+mv $tmp_posts_c $tmp_posts
 
 tmp_0=$(replace docs/templates/README.md %POSTS% $tmp_posts)
 
