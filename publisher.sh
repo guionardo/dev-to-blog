@@ -228,28 +228,6 @@ function publish_file() {
     fi
 }
 
-# function validate_post_id() {
-#     if [ -d $1 ]; then
-#         file_id="$1/id.json"
-#     else
-#         if [ -f $1 ]; then
-#             file_id="$1"
-#         else
-#             echo "Post id file not found $1"
-#         fi
-#     fi
-#     if [ -f $file_id ]; then
-#         id=$(jq '.id' $file_id)
-#         if [ "$id" -eq "$id" ]; then
-#             POST_ID=$id
-#             echo "Post id #$id"
-#         else
-#             echo "Invalid file $file_id"
-#             rm $file_id
-#         fi
-#     fi
-# }
-
 function unquote() {
     local u="${1%\"}"
     u="${u#\"}"
@@ -299,12 +277,9 @@ function parse_response_file() {
         echo "  + HTTP request failed - $http_status $(cat $post_folder)"
         ;;
     esac
-
-    # if [ "$http_status" -gt 399 ]; then
-
+    
     if [ "$response_file_id" == "null" ]; then
-        if [ "$http_status" == "422" ]; then
-            #TODO: Tratar retorno 422
+        if [ "$http_status" == "422" ]; then            
             # Post exists but doesnt have a id file
             used_canonical_url=$(jq '.article.canonical_url' $POST_METADATA_FILE)
             tmp_0=$(mktemp)

@@ -17,6 +17,15 @@ E já que os artigos ficariam no github, porque não automatizar a tarefa de pub
 Ok, primeira coisa a ser verificada. O dev.to tem alguma API? 
 - Tem! [DEV API](https://developers.forem.com/api)
 
-Então, precisamos ter um usuário registrado na plataforma. Como você é um desenvolvedor safo, não vou me preocupar com estas instruções, ok?
+Vamos precisar de três operações dessa API.
+
+1. [Criar artigo](https://developers.forem.com/api#operation/createArticle)
+2. [Editar artigo](https://developers.forem.com/api#operation/updateArticle)
+3. [Obter dados de um artigo pelo seu ID](https://developers.forem.com/api#operation/getArticleById)
+
+
+Então, precisamos ter um usuário registrado na plataforma. Como você é um desenvolvedor safo, não vou me preocupar com estas [instruções](https://dev.to/enter?state=new-user), ok?
 
 Após logar no dev.to, acesse as [configurações da conta](https://dev.to/settings/account) e crie uma API key. Guarde essa chave para usarmos em seguida.
+
+No próximo post, vamos configurar o repositório que usarmos para guardar os artigos e que automatizará a formatação e publicação.
