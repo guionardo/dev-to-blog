@@ -6,8 +6,8 @@
     "tags": [
       "github",
       "actions"
-    ],   
-    "series": "Publicando artigos no dev.to", 
-    "canonical_url": "https://dev.to/guionardo/my-post-1-d5c"
+    ],
+    "series": "Publicando artigos no dev.to",
+    "canonical_url": "https://dev.to/guionardo/automatizando-a-publicacao-de-artifgos-no-dev-to-com-github-actions"
   }
 }
