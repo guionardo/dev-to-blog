@@ -28,4 +28,4 @@ Então, precisamos ter um usuário registrado na plataforma. Como você é um de
 
 Após logar no dev.to, acesse as [configurações da conta](https://dev.to/settings/account) e crie uma API key. Guarde essa chave para usarmos em seguida.
 
-No próximo post, vamos configurar o repositório que usarmos para guardar os artigos e que automatizará a formatação e publicação.
+No próximo post, vamos configurar o repositório que usaremos para guardar os artigos e que automatizará a formatação e publicação.
