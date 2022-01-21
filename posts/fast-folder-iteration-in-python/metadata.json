@@ -1,0 +1,10 @@
+{
+    "article": {
+        "title": "Fast folder iteration in python",
+        "published": true,
+        "body_markdown": "in the file post.md",
+        "tags": [
+            "python"
+        ]
+    }
+}
