@@ -3,3 +3,4 @@
 * Wed, 03 Nov 2021 12:52:51 +0000 Updated post: #886664 - [Automatizando a publicação de artigos no dev.to com github actions](https://dev.to/guionardo/automatizando-a-publicacao-de-artifgos-no-devto-com-github-actions-47ee)
 * Wed, 03 Nov 2021 13:07:37 +0000 Updated post: #886664 - [Automatizando a publicação de artigos no dev.to com github actions](https://dev.to/guionardo/automatizando-a-publicacao-de-artifgos-no-devto-com-github-actions-47ee)
 * Wed, 03 Nov 2021 13:11:04 +0000 Created post: # - [Automatizando a publicação de artigos no dev.to com github actions](https://dev.to/guionardo/automatizando-a-publicacao-de-artigos-no-dev-to-com-github-actions)
+* Fri, 21 Jan 2022 00:26:12 +0000 Created post: # - [Fast folder iteration in python](https://dev.to/guionardo/fast-folder-iteration-in-python)
