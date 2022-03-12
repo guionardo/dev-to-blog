@@ -1,14 +1,15 @@
 {
-    "article": {
-        "title": "HTTP Hello World server for testing purposes (part 1)",
-        "published": true,
-        "body_markdown": "in the file post.md",
-        "tags": [
-            "golang",
-            "http",
-            "server",
-            "testing"
-        ],
-        "series": "Hello World Server"
-    }
+  "article": {
+    "title": "HTTP Hello World server for testing purposes (part 1)",
+    "published": true,
+    "body_markdown": "in the file post.md",
+    "tags": [
+      "golang",
+      "http",
+      "server",
+      "testing"
+    ],
+    "series": "Hello World Server",
+    "canonical_url": "https://dev.to/guionardo/http-hello-world-server-for-testing-purposes-part-1"
+  }
 }
