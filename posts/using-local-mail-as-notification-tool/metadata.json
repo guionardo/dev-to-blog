@@ -7,6 +7,8 @@
       "mail",
       "linux",
       "terminal",
-      "notification"    ]
+      "notification"
+  ],
+    "canonical_url": "https://dev.to/guionardo/using-local-mail-as-notification-tool"
   }
 }
