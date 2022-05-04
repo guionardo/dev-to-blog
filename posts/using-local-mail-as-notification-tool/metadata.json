@@ -1,0 +1,14 @@
+{
+  "article": {
+    "title": "Using local mail as notification tool",
+    "published": true,
+    "body_markdown": "in the file post.md",
+    "tags": [
+      "mail",
+      "linux",
+      "terminal",
+      "notification",
+      "tool"
+    ]
+  }
+}
