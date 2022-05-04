@@ -15,7 +15,7 @@ Currently: 6 posts
 * [HTTP Hello World server for testing purposes (part 1)](https://dev.to/guionardo/http-hello-world-server-for-testing-purposes-part-1-387h)
 * [Hello, World 2!]()
 * [Guardando seus segredos com segurança](https://dev.to/guionardo/guardando-seus-segredos-com-seguranca-3km)
-* [Using local mail as notification tool](null)
+* [Using local mail as notification tool](https://dev.to/guionardo/using-local-mail-as-notification-tool-47k2)
 
 ## History
 
@@ -27,3 +27,4 @@ Currently: 6 posts
 * Fri, 21 Jan 2022 00:26:12 +0000 Created post: # - [Fast folder iteration in python](https://dev.to/guionardo/fast-folder-iteration-in-python)
 * Sat, 12 Mar 2022 13:08:21 +0000 Created post: # - [HTTP Hello World server for testing purposes (part 1)](https://dev.to/guionardo/http-hello-world-server-for-testing-purposes-part-1)
 * Wed, 04 May 2022 18:47:50 +0000 Error creating post: # - 422 - {"error":"Tag list exceed the maximum of 4 tags","status":422}
+* Wed, 04 May 2022 18:50:56 +0000 Created post: # - [Using local mail as notification tool](https://dev.to/guionardo/using-local-mail-as-notification-tool)
