@@ -1,12 +1,13 @@
 {
-    "article": {
-        "title": "Creating animated gifs from your terminal",
-        "published": true,
-        "body_markdown": "in the file post.md",
-        "tags": [
-            "terminal",
-            "gif",
-            "linux"
-        ]
-    }
+  "article": {
+    "title": "Creating animated gifs from your terminal",
+    "published": true,
+    "body_markdown": "in the file post.md",
+    "tags": [
+      "terminal",
+      "gif",
+      "linux"
+    ],
+    "canonical_url": "https://dev.to/guionardo/creating-animated-gifs-from-your-terminal"
+  }
 }

@@ -7,3 +7,4 @@
 * Sat, 12 Mar 2022 13:08:21 +0000 Created post: # - [HTTP Hello World server for testing purposes (part 1)](https://dev.to/guionardo/http-hello-world-server-for-testing-purposes-part-1)
 * Wed, 04 May 2022 18:47:50 +0000 Error creating post: # - 422 - {"error":"Tag list exceed the maximum of 4 tags","status":422}
 * Wed, 04 May 2022 18:50:56 +0000 Created post: # - [Using local mail as notification tool](https://dev.to/guionardo/using-local-mail-as-notification-tool)
+* Fri, 19 Aug 2022 14:35:23 +0000 Created post: # - [Creating animated gifs from your terminal](https://dev.to/guionardo/creating-animated-gifs-from-your-terminal)
