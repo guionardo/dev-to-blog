@@ -1,12 +1,13 @@
 {
-    "article": {
-        "title": "Python Virtual Environment Setup",
-        "published": true,
-        "body_markdown": "in the file post.md",
-        "tags": [
-            "python",
-            "environment",
-            "virtualenv"
-        ]
-    }
+  "article": {
+    "title": "Python Virtual Environment Setup",
+    "published": true,
+    "body_markdown": "in the file post.md",
+    "tags": [
+      "python",
+      "environment",
+      "virtualenv"
+    ],
+    "canonical_url": "https://dev.to/guionardo/python-virtual-environment-setup"
+  }
 }
