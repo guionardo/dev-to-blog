@@ -4,7 +4,7 @@ Post created at 2022-12-12 10:30
 
 Setting your virtual environment with another python version.
 
-I'm using Ubuntu 220.04 LTS Jammy Jellyfish, wich has python 3.10.
+While I'm writing this post, I'm using Ubuntu 22.04 LTS Jammy Jellyfish, wich has python 3.10.
 
 But, I need to work on a project that runs on python 3.8. To assure that the development environment will be the same to the production environment, I have to setup this. I don't want to use docker in this case.
 
@@ -131,6 +131,17 @@ And now, you can use the python that you need:
 ❯ python --version
 Python 3.8.16
 ```
+
+## Post-setup
+
+After this, I usually install autopep8 and flake8 for linting/formatting.
+
+```bash
+pip install autopep8 flake8
+```
+
+
+Thanks for reading! Leave a comment and click the heart icon!
 
 
 ## Links:
