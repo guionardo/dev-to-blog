@@ -33,3 +33,4 @@ Currently: 8 posts
 * Fri, 19 Aug 2022 14:35:23 +0000 Created post: # - [Creating animated gifs from your terminal](https://dev.to/guionardo/creating-animated-gifs-from-your-terminal)
 * Mon, 12 Dec 2022 13:48:04 +0000 Created post: # - [Python Virtual Environment Setup](https://dev.to/guionardo/python-virtual-environment-setup)
 * Mon, 12 Dec 2022 16:07:41 +0000 Updated post: #1293439 - [Python Virtual Environment Setup](https://dev.to/guionardo/python-virtual-environment-setup-4o44)
+* Mon, 12 Dec 2022 16:23:48 +0000 Updated post: #1293439 - [Python Virtual Environment Setup](https://dev.to/guionardo/python-virtual-environment-setup-4o44)
